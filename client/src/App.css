@@ -1,0 +1,8 @@
+.Menu ul {
+  list-style-type: none;
+}
+
+.Menu ul li {
+  padding: 10px;
+  font-size: 1.5rem;
+}

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 // If the NODE_ENV is equal to dev, connect him to the development database, otherwise, connect him to the production database.
 
 const dblink =
-  process.env.NODE_ENV == "dev" ? process.env.DB_DEV : process.env.MONGODB_URI;
+  process.env.NODE_ENV == "development" ? process.env.DB_DEV : process.env.MONGODB_URI;
 
 // Connect to the dblink.
 
