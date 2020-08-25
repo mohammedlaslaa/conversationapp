@@ -1,10 +1,10 @@
 const conversationReducer = (state = {}, action) => {
   switch (action.type) {
-    case "GET_CONVERSATIONS":
-      state.hello = "Hello";
+    case "FETCH_CONVERSATIONS":
+      state = action.payload;
       return state;
-    case "GET_CONVERSATION_BY_ID":
-      // do something action.payload
+    case "ADD_NEW_CONVERSATION":
+      state.push(action.payload.conversation);
       return state;
     default:
       return state;

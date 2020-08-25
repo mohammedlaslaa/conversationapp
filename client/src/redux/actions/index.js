@@ -1,18 +1,20 @@
-export const getconversations = () => {
+export const getconversations = (data) => {
   return {
-    type: "GET_CONVERSATIONS",
+    type: "FETCH_CONVERSATIONS",
+    payload: data,
   };
 };
 
-export const getmessages = () => {
+export const addnewconversation = (data) => {
   return {
-    type: "GET_MESSAGES",
+    type: "ADD_NEW_CONVERSATION",
+    payload: data,
   };
 };
 
-export const getconversationbyid = (id) => {
+export const getconversationbyid = (data) => {
   return {
-    type: "GET_CONVERSATION_BY_ID",
-    payload: id,
+    type: "FETCH_CONVERSATION_BY_ID",
+    payload: data,
   };
 };

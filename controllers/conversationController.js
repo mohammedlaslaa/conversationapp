@@ -9,11 +9,11 @@ exports.getAll = async (req, res) => {
       req.params.all === "all"
         ? await Conversation.find({
             isActive: true,
-          })
+          }).populate("messages")
         : await Conversation.find({
             isActive: true,
             isClosed: false,
-          });
+          }).populate("messages");
 
     await Conversation.find({
       isActive: true,

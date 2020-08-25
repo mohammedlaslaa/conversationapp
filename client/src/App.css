@@ -1,3 +1,12 @@
+.App,
+.Layout,
+#root,
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
 .Menu ul {
   list-style-type: none;
 }
@@ -5,4 +14,8 @@
 .Menu ul li {
   padding: 10px;
   font-size: 1.5rem;
+}
+
+.ConversationContainer {
+  height: 75%;
 }

@@ -1,37 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Conversation from "./page/Conversation";
 import ListConversation from "./page/ListConversation";
-import { BrowserRouter as Router, Link, Switch, Route } from "react-router-dom";
+import Header from "./components/Header";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getconversations } from "./redux/actions";
+import Api from "./Api";
 
 // CSS import
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
+  const conversations = useSelector((state) => state.conversation);
+  const dispatch = useDispatch();
+
+  const [isFetched, setIsFetched] = useState(false);
+
+  useEffect(() => {
+    if (!isFetched) {
+      Api.getAllConversations().then(({ data }) => {
+        dispatch(getconversations(data.allConversation));
+        setIsFetched(true);
+      });
+    }
+  }, [dispatch, isFetched, conversations]);
+
   return (
     <div className="App">
       <Router>
-        <header className="App-header">
-          <nav className="Menu w-50 ml-2">
-            <ul className="d-flex justify-content-center border">
-              <li>
-                <Link to="/">Accueil</Link>
-              </li>
-              <li>
-                <Link to="/message">Conversations</Link>
-              </li>
-            </ul>
-          </nav>
-        </header>
+        <Header />
         {/* here some routes */}
-        <Switch>
-          <Route exact path="/">
-            <ListConversation />
-          </Route>
-          <Route path="/message">
-            <Conversation />
-          </Route>
-        </Switch>
+        <div className="Layout">
+          <Switch>
+            <Route exact path="/">
+              <ListConversation />
+            </Route>
+            <Route path="/conversations">
+              <Conversation conversations={conversations} />
+            </Route>
+          </Switch>
+        </div>
       </Router>
     </div>
   );
