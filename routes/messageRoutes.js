@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const isObjectIdValid = require("../middleware/isObjectIdValid");
-const messageController = require("../controllers/messageController");
+const isEmptyBody = require("../middleware/isEmptyBody");
+const { postMessage } = require("../controllers/messageController");
 
-router.get("/:id", messageController.getMessages);
+router.post("/", isEmptyBody, postMessage);
 
 module.exports = router;

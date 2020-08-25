@@ -2,25 +2,20 @@ const mongoose = require("mongoose");
 const Joi = require("@hapi/joi");
 
 const messageSchema = new mongoose.Schema({
-  FkConversation: {
+  fkConversation: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Conversation",
     required: true,
   },
 
-  messageId: {
-    type: Number,
-    default: 1,
-  },
-
   text: {
     type: String,
-    unique: true,
     minlength: 1,
     maxlength: 250,
+    required: true,
   },
 
-  date_register: {
+  date_create: {
     type: Date,
     default: Date.now(),
   },
@@ -46,9 +41,9 @@ const messageSchema = new mongoose.Schema({
 // Validator with the required fields.
 
 const schemaValidationMessage = Joi.object({
-  text: Joi.string()
-    .min(1)
-    .max(250),
+  fkConversation: Joi.string().required(),
+
+  text: Joi.string().min(1).max(250).required(),
 
   isActive: Joi.boolean(),
 });

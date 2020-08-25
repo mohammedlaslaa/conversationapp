@@ -14,7 +14,7 @@ const conversationSchema = new mongoose.Schema({
     maxlength: 30,
   },
 
-  date_register: {
+  date_create: {
     type: Date,
     default: Date.now(),
   },
@@ -33,6 +33,13 @@ const conversationSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+
+  isClosed: {
+    type: Boolean,
+    default: false,
+  },
+
+  messages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }],
 });
 
 // Note that the fields send in the request that are not in this JOI Object will automatically throw a rejected request.
@@ -57,6 +64,8 @@ const schemaPutValidationConversation = Joi.object({
     .max(30),
 
   isActive: Joi.boolean(),
+
+  isClosed: Joi.boolean(),
 });
 
 const Conversation = mongoose.model("Conversation", conversationSchema);
