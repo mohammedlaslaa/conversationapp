@@ -16,6 +16,25 @@ body {
   font-size: 1.5rem;
 }
 
+.ListConversation {
+  overflow-y: scroll;
+  height: 100%;
+}
+
 .ConversationContainer {
   height: 75%;
+  max-height: 75%;
+}
+
+.ConversationItem:hover {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+.SelectedItem {
+  background-color: #f2f2f2;
+}
+
+.Messages {
+  padding: 20px;
 }
