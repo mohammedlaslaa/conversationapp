@@ -3,7 +3,7 @@ import Conversation from "./page/Conversation";
 import ListConversation from "./page/ListConversation";
 import Header from "./components/Header";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getconversations } from "./redux/actions";
 import Api from "./Api";
 
@@ -12,10 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
-  const conversations = useSelector(
-    (state) => state.conversation,
-    shallowEqual
-  );
+  const conversations = useSelector((state) => state.conversation);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,7 +20,7 @@ function App() {
       dispatch(getconversations(data.allConversation));
     });
   }, [dispatch]);
-  
+
   return (
     <div className="App">
       <Router>

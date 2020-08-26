@@ -10,6 +10,10 @@ class Api {
     return this.ApiRequest("get", "conversation");
   }
 
+  static getConversationById(id) {
+    return this.ApiRequest("get", `conversation/detail/${id}`);
+  }
+
   static addNewConversation() {
     return this.ApiRequest("post", "conversation");
   }

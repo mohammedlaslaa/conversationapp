@@ -4,7 +4,7 @@ import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
   conversation: conversationReducer,
-  message: messageReducer,
+  messages: messageReducer,
 });
 
 export default allReducers;

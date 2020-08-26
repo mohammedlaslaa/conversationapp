@@ -18,3 +18,10 @@ export const getconversationbyid = (data) => {
     payload: data,
   };
 };
+
+export const getmessages = (data) => {
+  return {
+    type: "GET_MESSAGES",
+    payload: data.messages,
+  };
+};

@@ -32,7 +32,12 @@ body {
 }
 
 .SelectedItem {
-  background-color: #f2f2f2;
+  background-color: #7c7c7c;
+  color: #FFF;
+}
+
+.SelectedItem:hover {
+  background-color: #cecece;
 }
 
 .Messages {

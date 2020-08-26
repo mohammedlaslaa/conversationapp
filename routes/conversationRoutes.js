@@ -11,7 +11,7 @@ const {
 
 router.get("/:all?", getAll);
 
-router.get("/:id", getById);
+router.get("/detail/:id", isObjectIdValid, getById);
 
 router.post("/", createConversation);
 
