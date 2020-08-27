@@ -1,5 +1,4 @@
 .App,
-.Layout,
 #root,
 html,
 body {
@@ -21,9 +20,15 @@ body {
   height: 100%;
 }
 
+.ListConversation::-webkit-scrollbar, .ConversationContainer::-webkit-scrollbar {
+  display: none;
+}
+
 .ConversationContainer {
-  height: 75%;
   max-height: 75%;
+  height: 600px;
+  overflow: scroll;
+
 }
 
 .ConversationItem:hover {
@@ -33,7 +38,7 @@ body {
 
 .SelectedItem {
   background-color: #7c7c7c;
-  color: #FFF;
+  color: #fff;
 }
 
 .SelectedItem:hover {
@@ -42,4 +47,16 @@ body {
 
 .Messages {
   padding: 20px;
+  max-height: 600px;
+}
+
+.SendMessageContainer {
+  height: 25%;
+  position: relative;
+}
+
+.icon-close {
+  top: 0;
+  right: 0;
+  cursor: pointer;
 }

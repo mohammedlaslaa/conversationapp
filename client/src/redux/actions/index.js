@@ -22,6 +22,20 @@ export const getconversationbyid = (data) => {
 export const getmessages = (data) => {
   return {
     type: "GET_MESSAGES",
-    payload: data.messages,
+    payload: data,
+  };
+};
+
+export const sendmessage = (data) => {
+  return {
+    type: "SEND_MESSAGE",
+    payload: data,
+  };
+};
+
+export const closeconversation = (data) => {
+  return {
+    type: "CLOSE_CONVERSATION",
+    payload: data,
   };
 };

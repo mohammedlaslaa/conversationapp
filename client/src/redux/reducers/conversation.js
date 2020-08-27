@@ -9,6 +9,9 @@ const conversationReducer = (state = [], action) => {
     case "ADD_NEW_CONVERSATION":
       state = [...state, action.payload.conversation]
       return state;
+    case "CLOSE_CONVERSATION":
+      state = state.filter(e => e._id !== action.payload._id)
+      return state;
     default:
       return state;
   }

@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getconversations } from "./redux/actions";
 import Api from "./Api";
+import "./static/icon/remixicon.css";
+
 
 // CSS import
 import "bootstrap/dist/css/bootstrap.min.css";

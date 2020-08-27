@@ -1,7 +1,10 @@
-const messageReducer = (state = {}, action) => {
-  switch (action.type) {
+const messageReducer = (state = [], { type, payload }) => {
+  switch (type) {
     case "GET_MESSAGES":
-      state.current = action.payload;
+      state = payload.messages;
+      return state;
+    case "SEND_MESSAGE":
+      state = [...state, payload];
       return state;
     default:
       return state;

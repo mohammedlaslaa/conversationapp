@@ -108,7 +108,7 @@ exports.updateConversation = async (req, res) => {
       date_update: Date.now(),
     });
 
-    return res.status(200).send({ error: false });
+    return res.status(200).send({ error: false, conversation });
   } catch (e) {
     return res.status(404).send({ error: true, message: e.message });
   }

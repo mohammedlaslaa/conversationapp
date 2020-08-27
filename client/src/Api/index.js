@@ -1,4 +1,4 @@
-import axios from './Axios';
+import axios from "./Axios";
 
 class Api {
   static ApiRequest(method, endPoint, data = {}, options = {}) {
@@ -16,6 +16,18 @@ class Api {
 
   static addNewConversation() {
     return this.ApiRequest("post", "conversation");
+  }
+
+  static closeConversation(id) {
+    return this.ApiRequest("put", `conversation/${id}`, { isClosed: true });
+  }
+
+  static sendMessage(fkConversation, text) {
+    const objData = {
+      fkConversation,
+      text,
+    };
+    return this.ApiRequest("post", "message", objData);
   }
 }
 
