@@ -14,19 +14,20 @@ function Conversation() {
 
   useEffect(() => {
     const handleGetConversation = () => {
-      Api.getConversationById(idCurrentConversation).then(({ data }) =>
+      Api.getConversationById(idCurrentConversation).then(({ data }) => {
         dispatch(getmessages(data.conversation))
+      }
       );
     };
     if (idCurrentConversation === null && firstLoad) {
+      setFirstLoad(false);
       Api.getOpenConversations().then(({ data }) => {
         dispatch(getconversations(data.allConversation));
-        setFirstLoad(false);
         if (data.allConversation.length) {
           setIdCurrentConversation(data.allConversation[0]._id);
         }
       });
-    } else if (conversations.length && ref.current !== indexCurrent) {
+    } else if (conversations.length && idCurrentConversation !== null && ref.current !== indexCurrent) {
       ref.current = indexCurrent;
       handleGetConversation();
     } else if (idCurrentConversation === null && !firstLoad && conversations.length) {
