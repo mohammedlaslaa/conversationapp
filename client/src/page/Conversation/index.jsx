@@ -30,7 +30,6 @@ function Conversation() {
       ref.current = indexCurrent;
       handleGetConversation();
     } else if (idCurrentConversation === null && !firstLoad && conversations.length) {
-      console.log('ghello')
       setIdCurrentConversation(conversations[0]._id)
     }
   }, [conversations, dispatch, idCurrentConversation, indexCurrent, firstLoad]);
