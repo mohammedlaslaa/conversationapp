@@ -7,6 +7,7 @@ import { getmessages, getconversations } from "../../redux/actions";
 function Conversation() {
   const [idCurrentConversation, setIdCurrentConversation] = useState(null);
   const [indexCurrent, setIndexCurrent] = useState(0);
+  const [firstLoad, setFirstLoad] = useState(true);
   const dispatch = useDispatch();
   const ref = useRef();
   const conversations = useSelector((state) => state.conversation);
@@ -17,17 +18,22 @@ function Conversation() {
         dispatch(getmessages(data.conversation))
       );
     };
-    if (conversations.length && idCurrentConversation === null) {
-      Api.getOpenConversations()
-        .then(({ data }) => {
-          dispatch(getconversations(data.allConversation));
-        })
-        .then(() => setIdCurrentConversation(conversations[indexCurrent]._id));
+    if (idCurrentConversation === null && firstLoad) {
+      Api.getOpenConversations().then(({ data }) => {
+        dispatch(getconversations(data.allConversation));
+        setFirstLoad(false);
+        if (data.allConversation.length) {
+          setIdCurrentConversation(data.allConversation[0]._id);
+        }
+      });
     } else if (conversations.length && ref.current !== indexCurrent) {
       ref.current = indexCurrent;
       handleGetConversation();
+    } else if (idCurrentConversation === null && !firstLoad && conversations.length) {
+      console.log('ghello')
+      setIdCurrentConversation(conversations[0]._id)
     }
-  }, [conversations, dispatch, idCurrentConversation, indexCurrent]);
+  }, [conversations, dispatch, idCurrentConversation, indexCurrent, firstLoad]);
 
   const handleIndex = (index) => {
     setIdCurrentConversation(conversations[index]._id);
