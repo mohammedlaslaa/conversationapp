@@ -20,7 +20,8 @@ body {
   height: 100%;
 }
 
-.ListConversation::-webkit-scrollbar, .ConversationContainer::-webkit-scrollbar {
+.ListConversation::-webkit-scrollbar,
+.ConversationContainer::-webkit-scrollbar {
   display: none;
 }
 
@@ -28,7 +29,6 @@ body {
   max-height: 75%;
   height: 600px;
   overflow: scroll;
-
 }
 
 .ConversationItem:hover {
@@ -59,4 +59,16 @@ body {
   top: 0;
   right: 0;
   cursor: pointer;
+}
+
+.ri-eye-line {
+  cursor: pointer;
+}
+
+.Modal {
+  background-color: #f2f2f2;
+  height: 300px;
+  width: 500px;
+  top: 10%;
+  left: 40%;
 }

@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import MessagePart from "../../components/MessagePart";
 import Api from "../../Api";
-import { useDispatch } from "react-redux";
-import { getmessages } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { getmessages, getconversations } from "../../redux/actions";
 
-function Conversation({ conversations }) {
+function Conversation() {
   const [idCurrentConversation, setIdCurrentConversation] = useState(null);
   const [indexCurrent, setIndexCurrent] = useState(0);
   const dispatch = useDispatch();
+  const ref = useRef();
+  const conversations = useSelector((state) => state.conversation);
 
   useEffect(() => {
     const handleGetConversation = () => {
@@ -15,12 +17,22 @@ function Conversation({ conversations }) {
         dispatch(getmessages(data.conversation))
       );
     };
-    if (conversations.length > 0 && idCurrentConversation === null) {
-      setIdCurrentConversation(conversations[indexCurrent]._id);
-    } else if (idCurrentConversation) {
+    if (conversations.length && idCurrentConversation === null) {
+      Api.getOpenConversations()
+        .then(({ data }) => {
+          dispatch(getconversations(data.allConversation));
+        })
+        .then(() => setIdCurrentConversation(conversations[indexCurrent]._id));
+    } else if (conversations.length && ref.current !== indexCurrent) {
+      ref.current = indexCurrent;
       handleGetConversation();
     }
   }, [conversations, dispatch, idCurrentConversation, indexCurrent]);
+
+  const handleIndex = (index) => {
+    setIdCurrentConversation(conversations[index]._id);
+    setIndexCurrent(index);
+  };
 
   return (
     <div className="row border w-75 ConversationContainer">
@@ -29,8 +41,7 @@ function Conversation({ conversations }) {
           <div
             key={index}
             onClick={() => {
-              setIndexCurrent(index);
-              setIdCurrentConversation(conversations[index]._id);
+              handleIndex(index);
             }}
             className={
               "ConversationItem border border-secondary p-3 mt-1 d-flex justify-content-center align-items-center" +
@@ -44,7 +55,8 @@ function Conversation({ conversations }) {
       <MessagePart
         id={idCurrentConversation}
         indexCurrent={indexCurrent}
-        setIndexCurrent={setIndexCurrent}
+        handleIndex={handleIndex}
+        idCurrentConversation={idCurrentConversation}
         setIdCurrentConversation={setIdCurrentConversation}
       />
     </div>

@@ -5,6 +5,13 @@ export const getconversations = (data) => {
   };
 };
 
+export const getallconversations = (data) => {
+  return {
+    type: "FETCH_ALL_CONVERSATIONS",
+    payload: data,
+  };
+};
+
 export const addnewconversation = (data) => {
   return {
     type: "ADD_NEW_CONVERSATION",
@@ -30,6 +37,12 @@ export const sendmessage = (data) => {
   return {
     type: "SEND_MESSAGE",
     payload: data,
+  };
+};
+
+export const resetmessages = () => {
+  return {
+    type: "RESET_MESSAGES",
   };
 };
 

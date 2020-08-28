@@ -6,6 +6,9 @@ const messageReducer = (state = [], { type, payload }) => {
     case "SEND_MESSAGE":
       state = [...state, payload];
       return state;
+    case "RESET_MESSAGES":
+      state = [];
+      return state;
     default:
       return state;
   }

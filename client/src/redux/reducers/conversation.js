@@ -3,6 +3,9 @@ const conversationReducer = (state = [], action) => {
     case "FETCH_CONVERSATIONS":
       state = action.payload;
       return state;
+    case "FETCH_ALL_CONVERSATIONS":
+      state = action.payload;
+      return state;
     case "FETCH_CONVERSATION_BY_ID":
       state.current = action.payload;
       return state;

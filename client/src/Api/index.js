@@ -6,8 +6,12 @@ class Api {
     return axios({ method, url, data, ...options });
   }
 
-  static getAllConversations() {
+  static getOpenConversations() {
     return this.ApiRequest("get", "conversation");
+  }
+
+  static getAllConversations() {
+    return this.ApiRequest("get", "conversation/all");
   }
 
   static getConversationById(id) {

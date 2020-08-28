@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { sendmessage, closeconversation } from "../../redux/actions";
+import {
+  sendmessage,
+  closeconversation,
+  resetmessages,
+} from "../../redux/actions";
 import Api from "../../Api";
 
 function MessagePart({
   id,
   indexCurrent,
-  setIndexCurrent,
+  handleIndex,
   setIdCurrentConversation,
+  idCurrentConversation,
 }) {
   const currentConversation = useSelector((state) => state.messages);
   const conversation = useSelector((state) => state.conversation);
@@ -25,10 +30,10 @@ function MessagePart({
     Api.closeConversation(id).then(({ data }) => {
       dispatch(closeconversation(data.conversation));
       if (indexCurrent > 0) {
-        setIndexCurrent(indexCurrent - 1);
-        setIdCurrentConversation(indexCurrent - 1);
+        handleIndex(indexCurrent - 1);
       } else if (indexCurrent === 0) {
-        setIdCurrentConversation(1);
+        dispatch(resetmessages());
+        setIdCurrentConversation(null);
       }
     });
   };
@@ -36,15 +41,18 @@ function MessagePart({
   return (
     <div className="col-9 border Messages">
       <div className="ConversationContainer position-relative">
-        {currentConversation &&
-          currentConversation.map((e, index) => (
-            <div
-              key={index}
-              className="rounded text-white w-50 bg-secondary p-2 my-2"
-            >
-              <p className="m-0">{e.text}</p>
-            </div>
-          ))}
+        {currentConversation.length
+          ? currentConversation.map((e, index) => (
+              <div
+                key={index}
+                className="rounded text-white w-50 bg-secondary p-2 my-2"
+              >
+                <p className="m-0">{e.text}</p>
+              </div>
+            ))
+          : conversation.length === 0
+          ? "Aucune conversation veuillez en créer une"
+          : "Aucun message"}
         {conversation.length > 0 && (
           <div className="position-absolute icon-close">
             <i
@@ -55,24 +63,28 @@ function MessagePart({
         )}
       </div>
       <div className="SendMessageContainer row">
-        <div className="col-9 form-group m-0">
-          <textarea
-            className="w-75 form-control d-block mx-auto"
-            rows="3"
-            placeholder="Votre message ici..."
-            value={message}
-            onChange={({ target }) => setMessage(target.value)}
-          ></textarea>
-        </div>
-        <div className="col-2 d-flex align-items-center">
-          <button
-            className="btn btn-primary"
-            disabled={message === ""}
-            onClick={handleSendMessage}
-          >
-            Envoyer
-          </button>
-        </div>
+        {idCurrentConversation && (
+          <>
+            <div className="col-9 form-group m-0">
+              <textarea
+                className="w-75 form-control d-block mx-auto"
+                rows="3"
+                placeholder="Votre message ici..."
+                value={message}
+                onChange={({ target }) => setMessage(target.value)}
+              ></textarea>
+            </div>
+            <div className="col-2 d-flex align-items-center">
+              <button
+                className="btn btn-primary"
+                disabled={message === ""}
+                onClick={handleSendMessage}
+              >
+                Envoyer
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
